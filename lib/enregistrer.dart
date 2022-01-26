@@ -1,6 +1,9 @@
 import 'package:connexion/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'component/formtext.dart';
+import 'component/bouttonform.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NavbarEnregistrer extends StatelessWidget {
   const NavbarEnregistrer({Key? key}) : super(key: key);
@@ -44,42 +47,25 @@ class _EnregistrerState extends State<Enregistrer> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: Text(
+                "Création de compte",
+                style:
+                    GoogleFonts.montserrat(fontSize: 30, color: Colors.white),
+              ),
+            ),
+            FormText(false, "Entrez votre nom", Icons.account_box),
+            FormText(true, "Entrez votre mot de passe", Icons.lock_open),
+            FormText(true, "Remettez votre mot de passe", Icons.lock_open),
             FormText(false, "Entrez votre email", Icons.email),
+            BouttonForm(
+              HexColor("#ba7b87"),
+              "S'enregister",
+              NavbarEnregistrer(),
+            ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class FormText extends StatelessWidget {
-  bool boolObscureText;
-  String textField;
-  IconData iconField;
-  FormText(this.boolObscureText, this.textField, this.iconField);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-      child: TextFormField(
-        obscureText: boolObscureText,
-        textAlign: TextAlign.center,
-        decoration: const InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: Colors.white),
-          ),
-          labelText: "test",
-          labelStyle: TextStyle(color: Colors.white, fontSize: 16.0),
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Icon(
-              Icons.ac_unit,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        style: TextStyle(fontSize: 20.0, color: Colors.white),
       ),
     );
   }

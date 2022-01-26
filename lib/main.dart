@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'enregistrer.dart';
+import 'component/formtext.dart';
+import 'component/bouttonform.dart';
+import 'motdepasseoublie.dart';
 
 void main() => runApp(NavbarConnexion());
 
@@ -43,46 +46,19 @@ class _ConnexionState extends State<Connexion> {
                     'https://images.unsplash.com/photo-1642790391931-5c92f126809f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Colors.white),
-                  ),
-                  labelText: 'Entrez votre nom',
-                  labelStyle: TextStyle(color: Colors.white, fontSize: 16.0),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Icon(Icons.email, color: Colors.white),
-                  ),
-                ),
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-              child: TextFormField(
-                obscureText: true,
-                textAlign: TextAlign.center,
-                decoration: const InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Colors.white),
-                  ),
-                  labelText: 'Entrez votre mot de passe',
-                  labelStyle: TextStyle(color: Colors.white, fontSize: 16.0),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Icon(Icons.lock_open, color: Colors.white),
-                  ),
-                ),
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-            ),
+            FormText(false, "Entrez votre nom", Icons.account_box),
+            FormText(true, "Entrez votre mot de passe", Icons.lock_open),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextButton(
-                onPressed: () => {},
+                onPressed: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavbarMotPasseOublie(),
+                    ),
+                  ),
+                },
                 child: Text(
                   "Mot de passe oublié ?",
                   textAlign: TextAlign.right,
@@ -93,49 +69,10 @@ class _ConnexionState extends State<Connexion> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: TextButton(
-                    onPressed: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NavbarEnregistrer(),
-                        ),
-                      ),
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        HexColor("#ba947a"),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        "Enregistrer",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: TextButton(
-                    onPressed: () => {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        HexColor("#ba7b87"),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        "Connextion",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
+                BouttonForm(
+                    HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
+                BouttonForm(
+                    HexColor("#ba7b87"), "Se connecter", NavbarEnregistrer()),
               ],
             ),
           ],
