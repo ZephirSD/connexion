@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'component/formtext.dart';
 import 'component/bouttonform.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'acceuil.dart';
 
 class NavbarEnregistrer extends StatelessWidget {
   const NavbarEnregistrer({Key? key}) : super(key: key);
@@ -62,7 +63,7 @@ class _EnregistrerState extends State<Enregistrer> {
             BouttonForm(
               HexColor("#ba7b87"),
               "S'enregister",
-              NavbarEnregistrer(),
+              NavbarAccueil(),
             ),
           ],
         ),

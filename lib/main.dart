@@ -4,6 +4,7 @@ import 'enregistrer.dart';
 import 'component/formtext.dart';
 import 'component/bouttonform.dart';
 import 'motdepasseoublie.dart';
+import 'acceuil.dart';
 
 void main() => runApp(NavbarConnexion());
 
@@ -72,7 +73,7 @@ class _ConnexionState extends State<Connexion> {
                 BouttonForm(
                     HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
                 BouttonForm(
-                    HexColor("#ba7b87"), "Se connecter", NavbarEnregistrer()),
+                    HexColor("#ba7b87"), "Se connecter", NavbarAccueil()),
               ],
             ),
           ],
