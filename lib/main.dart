@@ -4,7 +4,8 @@ import 'enregistrer.dart';
 import 'component/formtext.dart';
 import 'component/bouttonform.dart';
 import 'motdepasseoublie.dart';
-import 'acceuil.dart';
+// import 'acceuil.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 TextEditingController nom = TextEditingController();
 TextEditingController motdepasse = TextEditingController();
@@ -34,7 +35,7 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
-  void login() {
+  login() {
     String nomLogin = nom.text;
     String motdepasseLogin = motdepasse.text;
     print(nomLogin + motdepasseLogin);
@@ -84,7 +85,12 @@ class _ConnexionState extends State<Connexion> {
                   padding: EdgeInsets.all(8),
                   child: TextButton(
                     onPressed: () => {
-                      login(),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavbarEnregistrer(),
+                        ),
+                      ),
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -99,11 +105,34 @@ class _ConnexionState extends State<Connexion> {
                       ),
                     ),
                   ),
-                )
-                // BouttonForm(
-                //     HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
-                // BouttonForm(
-                //     HexColor("#ba7b87"), "Se connecter", NavbarAccueil()),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextButton(
+                    onPressed: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => NavbarAccueil(),
+                      //   ),
+                      // ),
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        HexColor("#ba7b87"),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        "Se connecter",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+                // BouttonForm(HexColor("#ba947a"), "Enregister"),
+                // BouttonForm(HexColor("#ba7b87"), "Se connecter"),
               ],
             ),
           ],

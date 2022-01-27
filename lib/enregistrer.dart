@@ -45,6 +45,15 @@ class Enregistrer extends StatefulWidget {
 }
 
 class _EnregistrerState extends State<Enregistrer> {
+  void loginEnregister() {
+    String nomLogin = nom.text;
+    String motdepasseLogin = motdepasse.text;
+    String emailLogin = email.text;
+    print(nomLogin + motdepasseLogin + emailLogin);
+  }
+
+  test() {}
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,11 +75,7 @@ class _EnregistrerState extends State<Enregistrer> {
             FormText(true, "Remettez votre mot de passe", Icons.lock_open,
                 motdepasse),
             FormText(false, "Entrez votre email", Icons.email, email),
-            BouttonForm(
-              HexColor("#ba7b87"),
-              "S'enregister",
-              NavbarAccueil(),
-            ),
+            BouttonForm(HexColor("#ba7b87"), "S'enregister", NavbarAccueil()),
           ],
         ),
       ),

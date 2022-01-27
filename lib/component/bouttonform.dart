@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:connexion/main.dart';
 
 class BouttonForm extends StatelessWidget {
   final Color backgroundButton;
   final String texteBoutton;
   final Widget test;
+  //final void Function() callback;
   BouttonForm(this.backgroundButton, this.texteBoutton, this.test);
 
   @override
@@ -12,13 +12,13 @@ class BouttonForm extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8),
       child: TextButton(
-        onPressed: () => {
+        onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => test,
             ),
-          ),
+          );
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(

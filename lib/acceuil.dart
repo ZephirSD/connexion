@@ -2,6 +2,7 @@ import 'package:connexion/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'main.dart';
 
 class NavbarAccueil extends StatelessWidget {
   const NavbarAccueil({Key? key}) : super(key: key);

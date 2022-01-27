@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'component/formtext.dart';
 import 'component/bouttonform.dart';
-import 'enregistrer.dart';
+import 'acceuil.dart';
 
 TextEditingController email = TextEditingController();
 
@@ -42,6 +42,7 @@ class MotPasseOublie extends StatefulWidget {
 }
 
 class _MotPasseOublieState extends State<MotPasseOublie> {
+  test() {}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,7 +54,7 @@ class _MotPasseOublieState extends State<MotPasseOublie> {
             BouttonForm(
               HexColor("#ba7b87"),
               "Reinitialiser le mot de passe",
-              NavbarEnregistrer(),
+              NavbarAccueil(),
             )
           ],
         ),
