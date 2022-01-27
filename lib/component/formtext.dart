@@ -12,7 +12,6 @@ class FormText extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
       child: TextFormField(
         obscureText: boolObscureText,
-        textAlign: TextAlign.center,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 1, color: Colors.white),
