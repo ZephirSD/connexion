@@ -5,6 +5,8 @@ import 'component/formtext.dart';
 import 'component/bouttonform.dart';
 import 'enregistrer.dart';
 
+TextEditingController email = TextEditingController();
+
 class NavbarMotPasseOublie extends StatelessWidget {
   const NavbarMotPasseOublie({Key? key}) : super(key: key);
 
@@ -47,7 +49,7 @@ class _MotPasseOublieState extends State<MotPasseOublie> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FormText(false, "Entrez votre email", Icons.email),
+            FormText(false, "Entrez votre email", Icons.email, email),
             BouttonForm(
               HexColor("#ba7b87"),
               "Reinitialiser le mot de passe",

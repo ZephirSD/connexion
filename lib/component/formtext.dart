@@ -4,13 +4,16 @@ class FormText extends StatelessWidget {
   bool boolObscureText;
   final String labelText;
   final IconData iconField;
-  FormText(this.boolObscureText, this.labelText, this.iconField);
+  final controllerField;
+  FormText(this.boolObscureText, this.labelText, this.iconField,
+      this.controllerField);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
       child: TextFormField(
+        controller: controllerField,
         obscureText: boolObscureText,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(

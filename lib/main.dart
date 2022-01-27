@@ -6,6 +6,9 @@ import 'component/bouttonform.dart';
 import 'motdepasseoublie.dart';
 import 'acceuil.dart';
 
+TextEditingController nom = TextEditingController();
+TextEditingController motdepasse = TextEditingController();
+
 void main() => runApp(NavbarConnexion());
 
 class NavbarConnexion extends StatelessWidget {
@@ -31,6 +34,12 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
+  void login() {
+    String nomLogin = nom.text;
+    String motdepasseLogin = motdepasse.text;
+    print(nomLogin + motdepasseLogin);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,8 +56,9 @@ class _ConnexionState extends State<Connexion> {
                     'https://images.unsplash.com/photo-1642790391931-5c92f126809f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
               ),
             ),
-            FormText(false, "Entrez votre nom", Icons.account_box),
-            FormText(true, "Entrez votre mot de passe", Icons.lock_open),
+            FormText(false, "Entrez votre nom", Icons.account_box, nom),
+            FormText(
+                true, "Entrez votre mot de passe", Icons.lock_open, motdepasse),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextButton(
@@ -70,10 +80,30 @@ class _ConnexionState extends State<Connexion> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BouttonForm(
-                    HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
-                BouttonForm(
-                    HexColor("#ba7b87"), "Se connecter", NavbarAccueil()),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextButton(
+                    onPressed: () => {
+                      login(),
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        HexColor("#ba947a"),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        "Enregister",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
+                // BouttonForm(
+                //     HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
+                // BouttonForm(
+                //     HexColor("#ba7b87"), "Se connecter", NavbarAccueil()),
               ],
             ),
           ],

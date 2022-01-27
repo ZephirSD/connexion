@@ -6,6 +6,10 @@ import 'component/bouttonform.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'acceuil.dart';
 
+TextEditingController nom = TextEditingController();
+TextEditingController motdepasse = TextEditingController();
+TextEditingController email = TextEditingController();
+
 class NavbarEnregistrer extends StatelessWidget {
   const NavbarEnregistrer({Key? key}) : super(key: key);
 
@@ -56,10 +60,12 @@ class _EnregistrerState extends State<Enregistrer> {
                     GoogleFonts.montserrat(fontSize: 30, color: Colors.white),
               ),
             ),
-            FormText(false, "Entrez votre nom", Icons.account_box),
-            FormText(true, "Entrez votre mot de passe", Icons.lock_open),
-            FormText(true, "Remettez votre mot de passe", Icons.lock_open),
-            FormText(false, "Entrez votre email", Icons.email),
+            FormText(false, "Entrez votre nom", Icons.account_box, nom),
+            FormText(
+                true, "Entrez votre mot de passe", Icons.lock_open, motdepasse),
+            FormText(true, "Remettez votre mot de passe", Icons.lock_open,
+                motdepasse),
+            FormText(false, "Entrez votre email", Icons.email, email),
             BouttonForm(
               HexColor("#ba7b87"),
               "S'enregister",
