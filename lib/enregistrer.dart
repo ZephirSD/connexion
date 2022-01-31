@@ -3,7 +3,7 @@ import 'package:connexion/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'component/formtext.dart';
-//import 'component/bouttonform.dart';
+import 'component/bouttonform.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'acceuil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,6 +65,18 @@ class _EnregistrerState extends State<Enregistrer> {
     }
   }
 
+  onpressFonctionEnregister() async {
+    if (_formKey.currentState!.validate()) {
+      User? user = await FireAuth.registerUsingEmailPassword(
+          email: email.text, password: motdepasse.text);
+      if (user != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => NavbarAccueil()),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,40 +100,10 @@ class _EnregistrerState extends State<Enregistrer> {
               FormText(true, "Remettez votre mot de passe", Icons.lock_open,
                   motdepasse2),
               FormText(false, "Entrez votre email", Icons.email, email),
-              // BouttonForm(
-              //   HexColor("#ba7b87"),
-              //   "S'enregister",
-              //   NavbarAccueil(),
-              //   loginTest: () => loginEnregister(),
-              // ),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: TextButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      User? user = await FireAuth.registerUsingEmailPassword(
-                          email: email.text, password: motdepasse.text);
-                      if (user != null) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => NavbarAccueil()),
-                        );
-                      }
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      HexColor("#ba7b87"),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      "S'enregister",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
+              BouttonForm(
+                HexColor("#ba7b87"),
+                "S'enregister",
+                loginTest: onpressFonctionEnregister,
               ),
             ],
           ),
