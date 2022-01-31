@@ -8,10 +8,12 @@ import 'motdepasseoublie.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'component/connexion_user.dart';
 
 TextEditingController nom = TextEditingController();
 TextEditingController motdepasse = TextEditingController();
 FirebaseAuth auth = FirebaseAuth.instance;
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,33 +51,6 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
-  login() async {
-    String nomLogin = nom.text;
-    String motdepasseLogin = motdepasse.text;
-    print(nomLogin + motdepasseLogin);
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: nomLogin, password: motdepasseLogin);
-      if (userCredential != null) {
-        return Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NavbarAccueil(),
-          ),
-        );
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
-  }
-
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -129,8 +104,18 @@ class _ConnexionState extends State<Connexion> {
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: TextButton(
-                      onPressed: () {
-                        login();
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          User? user =
+                              await FireAuth.registerUsingEmailPassword(
+                                  email: nom.text, password: motdepasse.text);
+                          if (user != null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => NavbarAccueil()),
+                            );
+                          }
+                        }
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
