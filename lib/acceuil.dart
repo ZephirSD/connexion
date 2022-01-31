@@ -2,6 +2,7 @@ import 'package:connexion/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
 
 class NavbarAccueil extends StatelessWidget {
@@ -17,10 +18,13 @@ class NavbarAccueil extends StatelessWidget {
           backgroundColor: HexColor("#090c22"),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NavbarConnexion()),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => NavbarConnexion(),
+                ),
               );
             },
           ),
