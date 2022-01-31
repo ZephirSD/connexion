@@ -4,8 +4,9 @@ class BouttonForm extends StatelessWidget {
   final Color backgroundButton;
   final String texteBoutton;
   final Widget test;
-  //final void Function() callback;
-  BouttonForm(this.backgroundButton, this.texteBoutton, this.test);
+  final void Function() loginTest;
+  BouttonForm(this.backgroundButton, this.texteBoutton, this.test,
+      {this.loginTest = _voidTest});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class BouttonForm extends StatelessWidget {
               builder: (context) => test,
             ),
           );
+          loginTest();
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
@@ -36,3 +38,5 @@ class BouttonForm extends StatelessWidget {
     );
   }
 }
+
+dynamic _voidTest() {}

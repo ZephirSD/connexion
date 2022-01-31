@@ -1,19 +1,33 @@
+import 'package:connexion/acceuil.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'enregistrer.dart';
 import 'component/formtext.dart';
 import 'component/bouttonform.dart';
 import 'motdepasseoublie.dart';
-// import 'acceuil.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 TextEditingController nom = TextEditingController();
 TextEditingController motdepasse = TextEditingController();
+FirebaseAuth auth = FirebaseAuth.instance;
 
-void main() => runApp(NavbarConnexion());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(NavbarConnexion());
+}
 
 class NavbarConnexion extends StatelessWidget {
   const NavbarConnexion({Key? key}) : super(key: key);
+  Future<FirebaseApp> _initializeFirebase() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,101 +55,112 @@ class _ConnexionState extends State<Connexion> {
     print(nomLogin + motdepasseLogin);
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 45.0),
-              child: CircleAvatar(
-                radius: 80,
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1642790391931-5c92f126809f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
-              ),
-            ),
-            FormText(false, "Entrez votre nom", Icons.account_box, nom),
-            FormText(
-                true, "Entrez votre mot de passe", Icons.lock_open, motdepasse),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: TextButton(
-                onPressed: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavbarMotPasseOublie(),
-                    ),
-                  ),
-                },
-                child: Text(
-                  "Mot de passe oublié ?",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(color: HexColor("#ba7b87")),
+    return Form(
+      key: _formKey,
+      child: Container(
+        child: Center(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 45.0),
+                child: CircleAvatar(
+                  radius: 80,
+                  backgroundImage: NetworkImage(
+                      'https://images.unsplash.com/photo-1642790391931-5c92f126809f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextButton(
-                    onPressed: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NavbarEnregistrer(),
-                        ),
-                      ),
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        HexColor("#ba947a"),
+              FormText(false, "Entrez votre nom", Icons.account_box, nom),
+              FormText(true, "Entrez votre mot de passe", Icons.lock_open,
+                  motdepasse),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextButton(
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NavbarMotPasseOublie(),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        "Enregister",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                  },
+                  child: Text(
+                    "Mot de passe oublié ?",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(color: HexColor("#ba7b87")),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => NavbarAccueil(),
-                      //   ),
-                      // ),
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        HexColor("#ba7b87"),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        "Se connecter",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Padding(
+                  //   padding: EdgeInsets.all(8),
+                  //   child: TextButton(
+                  //     onPressed: () => {
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => NavbarEnregistrer(),
+                  //         ),
+                  //       ),
+                  //     },
+                  //     style: ButtonStyle(
+                  //       backgroundColor: MaterialStateProperty.all(
+                  //         HexColor("#ba947a"),
+                  //       ),
+                  //     ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.all(15.0),
+                  //       child: Text(
+                  //         "Enregister",
+                  //         style: TextStyle(color: Colors.white),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: EdgeInsets.all(8),
+                  //   child: TextButton(
+                  //     onPressed: () {
+                  //       // Navigator.push(
+                  //       //   context,
+                  //       //   MaterialPageRoute(
+                  //       //     builder: (context) => NavbarAccueil(),
+                  //       //   ),
+                  //       // ),
+                  //     },
+                  //     style: ButtonStyle(
+                  //       backgroundColor: MaterialStateProperty.all(
+                  //         HexColor("#ba7b87"),
+                  //       ),
+                  //     ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.all(15.0),
+                  //       child: Text(
+                  //         "Se connecter",
+                  //         style: TextStyle(color: Colors.white),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  BouttonForm(
+                      HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
+                  BouttonForm(
+                    HexColor("#ba7b87"),
+                    "Se connecter",
+                    NavbarAccueil(),
+                    loginTest: () => login(),
                   ),
-                ),
-                // BouttonForm(HexColor("#ba947a"), "Enregister"),
-                // BouttonForm(HexColor("#ba7b87"), "Se connecter"),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

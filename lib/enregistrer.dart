@@ -8,6 +8,7 @@ import 'acceuil.dart';
 
 TextEditingController nom = TextEditingController();
 TextEditingController motdepasse = TextEditingController();
+TextEditingController motdepasse2 = TextEditingController();
 TextEditingController email = TextEditingController();
 
 class NavbarEnregistrer extends StatelessWidget {
@@ -45,14 +46,19 @@ class Enregistrer extends StatefulWidget {
 }
 
 class _EnregistrerState extends State<Enregistrer> {
-  void loginEnregister() {
+  loginEnregister() async {
     String nomLogin = nom.text;
     String motdepasseLogin = motdepasse.text;
+    String motdepasseLogin2 = motdepasse2.text;
     String emailLogin = email.text;
     print(nomLogin + motdepasseLogin + emailLogin);
+    if (motdepasseLogin == motdepasseLogin2) {
+      print('Valide');
+      return motdepasse2;
+    } else {
+      print('Non Valide');
+    }
   }
-
-  test() {}
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +79,14 @@ class _EnregistrerState extends State<Enregistrer> {
             FormText(
                 true, "Entrez votre mot de passe", Icons.lock_open, motdepasse),
             FormText(true, "Remettez votre mot de passe", Icons.lock_open,
-                motdepasse),
+                motdepasse2),
             FormText(false, "Entrez votre email", Icons.email, email),
-            BouttonForm(HexColor("#ba7b87"), "S'enregister", NavbarAccueil()),
+            BouttonForm(
+              HexColor("#ba7b87"),
+              "S'enregister",
+              NavbarAccueil(),
+              loginTest: () => loginEnregister(),
+            ),
           ],
         ),
       ),
