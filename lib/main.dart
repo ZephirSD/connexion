@@ -49,10 +49,29 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
-  login() {
+  login() async {
     String nomLogin = nom.text;
     String motdepasseLogin = motdepasse.text;
     print(nomLogin + motdepasseLogin);
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: nomLogin, password: motdepasseLogin);
+      if (userCredential != null) {
+        return Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NavbarAccueil(),
+          ),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -99,63 +118,33 @@ class _ConnexionState extends State<Connexion> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Padding(
-                  //   padding: EdgeInsets.all(8),
-                  //   child: TextButton(
-                  //     onPressed: () => {
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) => NavbarEnregistrer(),
-                  //         ),
-                  //       ),
-                  //     },
-                  //     style: ButtonStyle(
-                  //       backgroundColor: MaterialStateProperty.all(
-                  //         HexColor("#ba947a"),
-                  //       ),
-                  //     ),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(15.0),
-                  //       child: Text(
-                  //         "Enregister",
-                  //         style: TextStyle(color: Colors.white),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: EdgeInsets.all(8),
-                  //   child: TextButton(
-                  //     onPressed: () {
-                  //       // Navigator.push(
-                  //       //   context,
-                  //       //   MaterialPageRoute(
-                  //       //     builder: (context) => NavbarAccueil(),
-                  //       //   ),
-                  //       // ),
-                  //     },
-                  //     style: ButtonStyle(
-                  //       backgroundColor: MaterialStateProperty.all(
-                  //         HexColor("#ba7b87"),
-                  //       ),
-                  //     ),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(15.0),
-                  //       child: Text(
-                  //         "Se connecter",
-                  //         style: TextStyle(color: Colors.white),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   BouttonForm(
                       HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
-                  BouttonForm(
-                    HexColor("#ba7b87"),
-                    "Se connecter",
-                    NavbarAccueil(),
-                    loginTest: () => login(),
+                  // BouttonForm(
+                  //   HexColor("#ba7b87"),
+                  //   "Se connecter",
+                  //   NavbarAccueil(),
+                  //   loginTest: () => login(),
+                  // ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextButton(
+                      onPressed: () {
+                        login();
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          HexColor("#ba7b87"),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          "Se connecter",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
