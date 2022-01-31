@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'component/formtext.dart';
 import 'component/bouttonform.dart';
 import 'acceuil.dart';
+import 'main.dart';
 
 TextEditingController email = TextEditingController();
 
@@ -54,7 +55,6 @@ class _MotPasseOublieState extends State<MotPasseOublie> {
             BouttonForm(
               HexColor("#ba7b87"),
               "Reinitialiser le mot de passe",
-              NavbarAccueil(),
             )
           ],
         ),

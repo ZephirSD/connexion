@@ -51,6 +51,27 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
+  onpressFonction() async {
+    if (_formKey.currentState!.validate()) {
+      User? user = await FireAuth.registerUsingEmailPassword(
+          email: nom.text, password: motdepasse.text);
+      if (user != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => NavbarAccueil()),
+        );
+      }
+    }
+  }
+
+  onpressFonctionNavigator() {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NavbarEnregistrer(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -58,7 +79,6 @@ class _ConnexionState extends State<Connexion> {
       child: Container(
         child: Center(
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
@@ -69,7 +89,8 @@ class _ConnexionState extends State<Connexion> {
                       'https://images.unsplash.com/photo-1642790391931-5c92f126809f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
                 ),
               ),
-              FormText(false, "Entrez votre nom", Icons.account_box, nom),
+              FormText(false, "Entrez votre nom utilisateur", Icons.account_box,
+                  nom),
               FormText(true, "Entrez votre mot de passe", Icons.lock_open,
                   motdepasse),
               Padding(
@@ -94,42 +115,14 @@ class _ConnexionState extends State<Connexion> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BouttonForm(
-                      HexColor("#ba947a"), "Enregister", NavbarEnregistrer()),
-                  // BouttonForm(
-                  //   HexColor("#ba7b87"),
-                  //   "Se connecter",
-                  //   NavbarAccueil(),
-                  //   loginTest: () => login(),
-                  // ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: TextButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          User? user =
-                              await FireAuth.registerUsingEmailPassword(
-                                  email: nom.text, password: motdepasse.text);
-                          if (user != null) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => NavbarAccueil()),
-                            );
-                          }
-                        }
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          HexColor("#ba7b87"),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text(
-                          "Se connecter",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
+                    HexColor("#ba947a"),
+                    "Enregister",
+                    loginTest: onpressFonctionNavigator,
+                  ),
+                  BouttonForm(
+                    HexColor("#ba7b87"),
+                    "Se Connecter",
+                    loginTest: onpressFonction,
                   ),
                 ],
               ),
