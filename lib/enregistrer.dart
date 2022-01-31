@@ -1,15 +1,20 @@
+import 'package:connexion/acceuil.dart';
 import 'package:connexion/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'component/formtext.dart';
-import 'component/bouttonform.dart';
+//import 'component/bouttonform.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'acceuil.dart';
+//import 'acceuil.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'component/create_user.dart';
 
 TextEditingController nom = TextEditingController();
 TextEditingController motdepasse = TextEditingController();
 TextEditingController motdepasse2 = TextEditingController();
 TextEditingController email = TextEditingController();
+FirebaseAuth auth = FirebaseAuth.instance;
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 class NavbarEnregistrer extends StatelessWidget {
   const NavbarEnregistrer({Key? key}) : super(key: key);
@@ -46,7 +51,7 @@ class Enregistrer extends StatefulWidget {
 }
 
 class _EnregistrerState extends State<Enregistrer> {
-  loginEnregister() async {
+  loginEnregister() {
     String nomLogin = nom.text;
     String motdepasseLogin = motdepasse.text;
     String motdepasseLogin2 = motdepasse2.text;
@@ -64,30 +69,62 @@ class _EnregistrerState extends State<Enregistrer> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40),
-              child: Text(
-                "Création de compte",
-                style:
-                    GoogleFonts.montserrat(fontSize: 30, color: Colors.white),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: Text(
+                  "Création de compte",
+                  style:
+                      GoogleFonts.montserrat(fontSize: 30, color: Colors.white),
+                ),
               ),
-            ),
-            FormText(false, "Entrez votre nom", Icons.account_box, nom),
-            FormText(
-                true, "Entrez votre mot de passe", Icons.lock_open, motdepasse),
-            FormText(true, "Remettez votre mot de passe", Icons.lock_open,
-                motdepasse2),
-            FormText(false, "Entrez votre email", Icons.email, email),
-            BouttonForm(
-              HexColor("#ba7b87"),
-              "S'enregister",
-              NavbarAccueil(),
-              loginTest: () => loginEnregister(),
-            ),
-          ],
+              FormText(false, "Entrez votre nom", Icons.account_box, nom),
+              FormText(true, "Entrez votre mot de passe", Icons.lock_open,
+                  motdepasse),
+              FormText(true, "Remettez votre mot de passe", Icons.lock_open,
+                  motdepasse2),
+              FormText(false, "Entrez votre email", Icons.email, email),
+              // BouttonForm(
+              //   HexColor("#ba7b87"),
+              //   "S'enregister",
+              //   NavbarAccueil(),
+              //   loginTest: () => loginEnregister(),
+              // ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: TextButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      User? user = await FireAuth.registerUsingEmailPassword(
+                          email: email.text, password: motdepasse.text);
+                      if (user != null) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => NavbarAccueil()),
+                        );
+                      }
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      HexColor("#ba7b87"),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "S'enregister",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
