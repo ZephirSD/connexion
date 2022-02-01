@@ -9,6 +9,8 @@ import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'component/connexion_user.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'component/icone_social.dart';
 
 TextEditingController nom = TextEditingController();
 TextEditingController motdepasse = TextEditingController();
@@ -72,6 +74,15 @@ class _ConnexionState extends State<Connexion> {
     );
   }
 
+  onpressFonctionNavigator2() {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NavbarMotPasseOublie(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -93,23 +104,11 @@ class _ConnexionState extends State<Connexion> {
                   nom),
               FormText(true, "Entrez votre mot de passe", Icons.lock_open,
                   motdepasse),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: TextButton(
-                  onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NavbarMotPasseOublie(),
-                      ),
-                    ),
-                  },
-                  child: Text(
-                    "Mot de passe oublié ?",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(color: HexColor("#ba7b87")),
-                  ),
-                ),
+              BouttonForm(
+                Colors.transparent,
+                "Mot de passe oublié ?",
+                texteCouleur: HexColor("#ba7b87"),
+                loginTest: onpressFonctionNavigator2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -126,6 +125,24 @@ class _ConnexionState extends State<Connexion> {
                   ),
                 ],
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(60, 35, 60, 10),
+                child: Column(
+                  children: [
+                    Text(
+                      "Connectez-vous avec",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Row(
+                      children: [
+                        Icone_Social(FontAwesomeIcons.apple),
+                        Icone_Social(FontAwesomeIcons.google),
+                        Icone_Social(FontAwesomeIcons.facebook),
+                      ],
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),

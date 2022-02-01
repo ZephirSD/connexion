@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class BouttonForm extends StatelessWidget {
   final Color backgroundButton;
+  final Color texteCouleur;
   final String texteBoutton;
   final void Function() loginTest;
   BouttonForm(
     this.backgroundButton,
     this.texteBoutton, {
     this.loginTest = _voidTest,
+    this.texteCouleur = Colors.white,
   });
 
   @override
@@ -27,7 +29,7 @@ class BouttonForm extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: Text(
             texteBoutton,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: texteCouleur),
           ),
         ),
       ),
